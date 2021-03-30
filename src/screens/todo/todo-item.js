@@ -18,7 +18,9 @@ export const TodoItem = ({ todo }) => {
       </View>
 
       <View style={styles.textWrapper}>
-        <Text style={{ fontSize: 16 }}>{title}</Text>
+        <Text style={{ fontSize: 16, textDecorationLine: completed ? 'line-through' : 'none' }}>
+          {title}
+        </Text>
       </View>
 
       <View style={styles.buttonWrapper}>
@@ -38,6 +40,10 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderBottomWidth: 0.5,
+    borderColor: '#aeafb3',
   },
   checkBoxWrapper: {
     width: '11%',
