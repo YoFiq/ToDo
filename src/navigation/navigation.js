@@ -3,12 +3,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faList, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { ToDo } from '../screens/to-do/to-do';
-import { Info } from '../screens/info/info';
+import { ToDo } from '../screens/to-do/todo';
+import { About } from '../screens/about/about';
 
 const AppTab = createBottomTabNavigator();
 const ToDoStack = createStackNavigator();
-const InfoStack = createStackNavigator();
+const AboutStack = createStackNavigator();
 
 const headerOptions = {
   headerStyle: {
@@ -30,14 +30,14 @@ export const ToDoStackScreen = () => (
   </ToDoStack.Navigator>
 );
 
-export const InfoStackScreen = () => (
-  <InfoStack.Navigator>
-    <InfoStack.Screen
+export const AboutStackScreen = () => (
+  <AboutStack.Navigator>
+    <AboutStack.Screen
       name="Info"
-      component={Info}
-      options={{ ...headerOptions, title: 'Information' }}
+      component={About}
+      options={{ ...headerOptions, title: 'About' }}
     />
-  </InfoStack.Navigator>
+  </AboutStack.Navigator>
 );
 
 export const AppTabScreen = () => {
@@ -72,7 +72,7 @@ export const AppTabScreen = () => {
       }}
     >
       <AppTab.Screen name="ToDo" component={ToDoStackScreen} />
-      <AppTab.Screen name="Info" component={InfoStackScreen} />
+      <AppTab.Screen name="About" component={AboutStackScreen} />
     </AppTab.Navigator>
   );
 };

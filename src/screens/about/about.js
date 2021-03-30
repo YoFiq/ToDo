@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 import rnIcon from '../../../assets/RN.png';
 
-export const Info = () => (
+export const About = () => (
   <View style={styles.screen}>
     <Image source={rnIcon} style={{ width: 200, height: 200 }} />
     <View style={styles.textContainer}>
