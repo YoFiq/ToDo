@@ -17,7 +17,7 @@ export const TodoInput = () => {
         placeholderTextColor="#535354"
       />
       <Button
-        onPress={() => console.log('pressed')}
+        onPress={() => console.log(text)}
         style={styles.button}
         type="clear"
         icon={<FontAwesomeIcon icon={faPlus} size={26} color="#2089DC" />}

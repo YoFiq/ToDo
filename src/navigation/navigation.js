@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faList, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { Todo } from '../screens/todo/todo';
+import { TodoList } from '../screens/todo/todo-list';
 import { About } from '../screens/about/about';
 
 const AppTab = createBottomTabNavigator();
@@ -17,14 +17,15 @@ const headerOptions = {
   headerTintColor: '#2089DC',
   headerTitleStyle: {
     fontWeight: 'bold',
+    fontSize: 20,
   },
 };
 
 export const TodoStackScreen = () => (
   <TodoStack.Navigator>
     <TodoStack.Screen
-      name="ToDo"
-      component={Todo}
+      name="TodList"
+      component={TodoList}
       options={{ ...headerOptions, title: 'Todo List' }}
     />
   </TodoStack.Navigator>
@@ -33,7 +34,7 @@ export const TodoStackScreen = () => (
 export const AboutStackScreen = () => (
   <AboutStack.Navigator>
     <AboutStack.Screen
-      name="Info"
+      name="About"
       component={About}
       options={{ ...headerOptions, title: 'About' }}
     />
