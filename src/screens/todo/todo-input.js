@@ -6,13 +6,13 @@ import { Button } from 'react-native-elements';
 import { addTodo } from '../../api/add-todo';
 
 export const TodoInput = ({ setTodos }) => {
-  const [text, onChangeText] = React.useState('');
+  const [text, setText] = React.useState('');
 
   return (
     <View style={styles.screen}>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
+        onChangeText={setText}
         value={text}
         placeholder="Add a todo..."
         placeholderTextColor="#535354"
@@ -24,6 +24,7 @@ export const TodoInput = ({ setTodos }) => {
               prevState.push(res.data.data.addTodo);
               return [...prevState];
             });
+            setText('');
           });
         }}
         style={styles.button}
