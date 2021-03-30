@@ -19,13 +19,18 @@ export const TodoInput = ({ setTodos }) => {
       />
       <Button
         onPress={() => {
-          addTodo(text).then((res) => {
-            setTodos((prevState) => {
-              prevState.push(res.data.data.addTodo);
-              return [...prevState];
+          if (text !== '') {
+            addTodo(text).then((res) => {
+              setTodos((prevState) => {
+                prevState.push(res.data.data.addTodo);
+                return [...prevState];
+              });
+              setText('');
             });
-            setText('');
-          });
+          } else {
+            // eslint-disable-next-line no-alert
+            alert('Todo text is required');
+          }
         }}
         style={styles.button}
         type="clear"
