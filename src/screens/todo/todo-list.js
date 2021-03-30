@@ -1,40 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { TodoInput } from './todo-input';
 import { TodoItem } from './todo-item';
-
-const mockedTodos = () => [
-  {
-    id: '1',
-    title: 'First test todo',
-    completed: true,
-  },
-  {
-    id: '2',
-    title: 'Second test todo',
-    completed: false,
-  },
-  {
-    id: '3',
-    title: 'Third test todo',
-    completed: false,
-  },
-  {
-    id: '4',
-    title:
-      'Fourth test todotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodotodo',
-    completed: true,
-  },
-];
+import { getAllTodos } from '../../api/get-all-todos';
 
 export const TodoList = () => {
-  const [todos, setTodos] = useState(mockedTodos);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    getAllTodos().then((res) => {
+      setTodos(res.data.data.getAllTodos);
+    });
+  }, []);
+
   return (
     <View style={styles.screen}>
-      <TodoInput />
+      <TodoInput setTodos={setTodos} />
       <FlatList
         data={todos}
-        renderItem={({ item }) => <TodoItem todo={item} />}
+        renderItem={({ item }) => <TodoItem setTodos={setTodos} todo={item} />}
         keyExtractor={(item) => item.id}
       />
     </View>

@@ -4,8 +4,10 @@ import { Button } from 'react-native-elements';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import CheckBox from 'react-native-check-box';
+import { deleteTodo } from '../../api/delete-todo';
+import { updateTodo } from '../../api/update-todo';
 
-export const TodoItem = ({ todo }) => {
+export const TodoItem = ({ todo, setTodos }) => {
   const { id, title, completed } = todo;
   return (
     <View style={styles.wrapper}>
@@ -13,7 +15,11 @@ export const TodoItem = ({ todo }) => {
         <CheckBox
           checkBoxColor="#2089DC"
           isChecked={completed}
-          onClick={() => console.log('checked')}
+          onClick={() =>
+            updateTodo(id).then((res) => {
+              setTodos(res.data.data.updateTodo);
+            })
+          }
         />
       </View>
 
@@ -25,7 +31,11 @@ export const TodoItem = ({ todo }) => {
 
       <View style={styles.buttonWrapper}>
         <Button
-          onPress={() => console.log(id)}
+          onPress={() =>
+            deleteTodo(id).then((res) => {
+              setTodos(res.data.data.removeTodo);
+            })
+          }
           type="clear"
           icon={<FontAwesomeIcon icon={faTrashAlt} size={22} color="#2089DC" />}
         />

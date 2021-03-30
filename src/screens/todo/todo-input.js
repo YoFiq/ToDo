@@ -3,8 +3,9 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-native-elements';
+import { addTodo } from '../../api/add-todo';
 
-export const TodoInput = () => {
+export const TodoInput = ({ setTodos }) => {
   const [text, onChangeText] = React.useState('');
 
   return (
@@ -17,7 +18,14 @@ export const TodoInput = () => {
         placeholderTextColor="#535354"
       />
       <Button
-        onPress={() => console.log(text)}
+        onPress={() => {
+          addTodo(text).then((res) => {
+            setTodos((prevState) => {
+              prevState.push(res.data.data.addTodo);
+              return [...prevState];
+            });
+          });
+        }}
         style={styles.button}
         type="clear"
         icon={<FontAwesomeIcon icon={faPlus} size={26} color="#2089DC" />}
