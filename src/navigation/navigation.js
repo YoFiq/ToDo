@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faList, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { ToDo } from '../screens/to-do/todo';
+import { Todo } from '../screens/todo/todo';
 import { About } from '../screens/about/about';
 
 const AppTab = createBottomTabNavigator();
-const ToDoStack = createStackNavigator();
+const TodoStack = createStackNavigator();
 const AboutStack = createStackNavigator();
 
 const headerOptions = {
@@ -20,14 +20,14 @@ const headerOptions = {
   },
 };
 
-export const ToDoStackScreen = () => (
-  <ToDoStack.Navigator>
-    <ToDoStack.Screen
+export const TodoStackScreen = () => (
+  <TodoStack.Navigator>
+    <TodoStack.Screen
       name="ToDo"
-      component={ToDo}
-      options={{ ...headerOptions, title: 'To Do List' }}
+      component={Todo}
+      options={{ ...headerOptions, title: 'Todo List' }}
     />
-  </ToDoStack.Navigator>
+  </TodoStack.Navigator>
 );
 
 export const AboutStackScreen = () => (
@@ -43,7 +43,7 @@ export const AboutStackScreen = () => (
 export const AppTabScreen = () => {
   const getRouteIcon = (name) => {
     switch (name) {
-      case 'ToDo':
+      case 'List':
         return faList;
       default:
         return faInfoCircle;
@@ -71,7 +71,7 @@ export const AppTabScreen = () => {
         },
       }}
     >
-      <AppTab.Screen name="ToDo" component={ToDoStackScreen} />
+      <AppTab.Screen name="List" component={TodoStackScreen} />
       <AppTab.Screen name="About" component={AboutStackScreen} />
     </AppTab.Navigator>
   );
