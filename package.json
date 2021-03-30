@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint 'src/**/*.js app.js'",
+    "lint": "eslint 'src/**/*.js'",
     "lint:fix": "yarn lint --fix",
     "prettier:check": "prettier --check 'src/**/*.js'",
     "prettier:write": "prettier --write 'src/**/*.js'"
@@ -25,7 +25,8 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.0.1",
     "react-native-safe-area-context": "^3.2.0",
-    "react-native-screens": "^2.18.1"
+    "react-native-screens": "^2.18.1",
+    "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",

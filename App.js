@@ -4,14 +4,15 @@
  */
 import React from 'react';
 import type { Node } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { AppTabScreen } from './src/navigation/navigation';
 
 const App: () => Node = () => (
-  <SafeAreaView>
+  <NavigationContainer>
     <StatusBar barStyle="dark-content" />
-  </SafeAreaView>
+    <AppTabScreen />
+  </NavigationContainer>
 );
-
-const styles = StyleSheet.create({});
 
 export default App;
