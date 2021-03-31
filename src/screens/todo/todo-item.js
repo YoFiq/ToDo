@@ -11,7 +11,13 @@ export const TodoItem = ({ todo, updateTodoItem, deleteTodoItem }) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.checkBoxWrapper}>
-        <BouncyCheckbox isChecked={completed} onPress={() => updateTodoItem(id)} />
+        <BouncyCheckbox
+          style={styles.checkBox}
+          iconStyle={{ borderColor: '#2089DC' }}
+          fillColor="#2089DC"
+          isChecked={completed}
+          onPress={() => updateTodoItem(id)}
+        />
       </View>
 
       <View style={styles.textWrapper}>
@@ -45,6 +51,9 @@ const styles = StyleSheet.create({
   checkBoxWrapper: {
     width: '11%',
     alignItems: 'center',
+  },
+  checkBox: {
+    marginLeft: 10,
   },
   textWrapper: {
     width: '76%',

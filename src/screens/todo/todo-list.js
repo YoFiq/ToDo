@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useIsConnected } from 'react-native-offline';
-import { Button } from 'react-native-elements';
 import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
 import { TodoInput } from './todo-input';
@@ -18,6 +17,7 @@ import { updateTodo } from '../../api/update-todo';
 export const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const isConnected = useIsConnected();
+  const isMounted = useRef(false);
 
   const setNewTodo = (todo) =>
     setTodos((prevState) => {
@@ -73,6 +73,14 @@ export const TodoList = () => {
   };
 
   useEffect(() => {
+    if (isMounted.current && isConnected) {
+      synchroniseTodos();
+    }
+  }, [isConnected]);
+
+  useEffect(() => {
+    isMounted.current = true;
+
     if (!isConnected) {
       getTodosFromAsyncStorage().then((res) => setTodos(res));
     } else {
@@ -82,12 +90,6 @@ export const TodoList = () => {
       });
     }
   }, []);
-
-  useEffect(() => {
-    if (todos.length !== 0 && isConnected) {
-      synchroniseTodos();
-    }
-  }, [isConnected]);
 
   return (
     <View style={styles.screen}>
@@ -99,13 +101,6 @@ export const TodoList = () => {
           <TodoItem todo={item} updateTodoItem={updateTodoItem} deleteTodoItem={deleteTodoItem} />
         )}
         keyExtractor={(item) => item.id}
-      />
-      <Button
-        title="async"
-        onPress={() => {
-          getTodosFromAsyncStorage().then((res) => alert(res));
-          getTodosFromAsyncStorage().then((res) => setTodos(res));
-        }}
       />
     </View>
   );
