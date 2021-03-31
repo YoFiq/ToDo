@@ -12,7 +12,7 @@ import { AppTabScreen } from './src/navigation/navigation';
 const App: () => Node = () => (
   <NavigationContainer>
     <NetworkProvider>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="#e6e6ea" />
       <AppTabScreen />
     </NetworkProvider>
   </NavigationContainer>

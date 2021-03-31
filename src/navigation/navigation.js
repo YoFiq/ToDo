@@ -15,6 +15,7 @@ const headerOptions = {
     backgroundColor: '#e6e6ea',
   },
   headerTintColor: '#2089DC',
+  headerTitleAlign: 'center',
   headerTitleStyle: {
     fontWeight: 'bold',
     fontSize: 20,
