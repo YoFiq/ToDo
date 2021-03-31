@@ -33,3 +33,10 @@ mutation createTodo {
   }
 }
 `;
+
+export const SYNC_TODOS_QUERY = (todos) => `
+mutation syncTodos {
+  syncTodos(todos:${todos})
+  {id,title,completed}
+}
+`;
