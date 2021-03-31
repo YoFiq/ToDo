@@ -1,4 +1,5 @@
-export const GRAPHQL_API = 'http://localhost:3005/graphql';
+// export const GRAPHQL_API = 'http://localhost:3005/graphql';
+export const GRAPHQL_API = 'http://192.168.0.143:3005/graphql';
 
 export const GET_TODOS_QUERY = `
   query getAllTodos {

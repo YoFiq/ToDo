@@ -14,7 +14,6 @@ export const TodoList = () => {
   const formatGraphQlData = (data) => JSON.stringify(data).replace(/"([^(")"]+)":/g, '$1:');
 
   const synchroniseTodos = () => {
-    console.log('runned');
     const reformattedTodos = formatGraphQlData(todos);
     syncTodos(reformattedTodos).then((res) => console.log(res.data.data));
   };
