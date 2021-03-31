@@ -3,10 +3,34 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-native-elements';
+import 'react-native-get-random-values';
+import { nanoid } from 'nanoid';
+import { useIsConnected } from 'react-native-offline';
 import { addTodo } from '../../api/add-todo';
+import { setTodosToAsyncStorage } from '../../services/async-storage';
 
 export const TodoInput = ({ setTodos }) => {
   const [text, setText] = React.useState('');
+  const isConnected = useIsConnected();
+
+  const addOnlineTodo = () => {
+    addTodo(text).then((res) => {
+      setTodos((prevState) => {
+        prevState.push(res.data.data.addTodo);
+        setTodosToAsyncStorage([...prevState]);
+        return [...prevState];
+      });
+      setText('');
+    });
+  };
+
+  const addOfflineTodo = () => {
+    setTodos((prevState) => {
+      prevState.push({ id: nanoid(), title: text, completed: false });
+      setTodosToAsyncStorage([...prevState]);
+      return [...prevState];
+    });
+  };
 
   return (
     <View style={styles.screen}>
@@ -20,13 +44,11 @@ export const TodoInput = ({ setTodos }) => {
       <Button
         onPress={() => {
           if (text !== '') {
-            addTodo(text).then((res) => {
-              setTodos((prevState) => {
-                prevState.push(res.data.data.addTodo);
-                return [...prevState];
-              });
-              setText('');
-            });
+            if (isConnected) {
+              addOnlineTodo();
+            } else {
+              addOfflineTodo();
+            }
           } else {
             // eslint-disable-next-line no-alert
             alert('Todo text is required');
