@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useIsConnected } from 'react-native-offline';
+import { Button } from 'react-native-elements';
 import { TodoInput } from './todo-input';
 import { TodoItem } from './todo-item';
 import { getAllTodos } from '../../api/get-all-todos';
 import { syncTodos } from '../../api/sync-todos';
 import { NetworkDetector } from '../../services/network-detector';
+import { formatGraphQlData } from '../../shared/utils';
+import { getTodosFromAsyncStorage, setTodosToAsyncStorage } from '../../services/async-storage';
 
 export const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const isConnected = useIsConnected();
-
-  const formatGraphQlData = (data) => JSON.stringify(data).replace(/"([^(")"]+)":/g, '$1:');
 
   const synchroniseTodos = () => {
     const reformattedTodos = formatGraphQlData(todos);
@@ -19,9 +20,14 @@ export const TodoList = () => {
   };
 
   useEffect(() => {
-    getAllTodos().then((res) => {
-      setTodos(res.data.data.getAllTodos);
-    });
+    if (isConnected) {
+      getAllTodos().then((res) => {
+        setTodos(res.data.data.getAllTodos);
+        setTodosToAsyncStorage(res.data.data.getAllTodos);
+      });
+    } else {
+      getTodosFromAsyncStorage().then((res) => setTodos(res));
+    }
   }, []);
 
   useEffect(() => {
@@ -38,6 +44,12 @@ export const TodoList = () => {
         data={todos}
         renderItem={({ item }) => <TodoItem setTodos={setTodos} todo={item} />}
         keyExtractor={(item) => item.id}
+      />
+      <Button
+        title="async"
+        onPress={() => {
+          getTodosFromAsyncStorage().then((res) => console.log(res));
+        }}
       />
     </View>
   );

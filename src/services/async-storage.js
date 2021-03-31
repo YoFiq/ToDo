@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getTodosFromAsyncStorage = async () => {
   const jsonValue = await AsyncStorage.getItem('@todos');
-  return jsonValue != null ? JSON.parse(jsonValue) : null;
+  return jsonValue != null ? JSON.parse(jsonValue) : [];
 };
 
 export const setTodosToAsyncStorage = async (todos) => {
