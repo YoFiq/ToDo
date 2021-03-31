@@ -6,12 +6,15 @@ import React from 'react';
 import type { Node } from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { NetworkProvider } from 'react-native-offline';
 import { AppTabScreen } from './src/navigation/navigation';
 
 const App: () => Node = () => (
   <NavigationContainer>
-    <StatusBar barStyle="dark-content" />
-    <AppTabScreen />
+    <NetworkProvider>
+      <StatusBar barStyle="dark-content" />
+      <AppTabScreen />
+    </NetworkProvider>
   </NavigationContainer>
 );
 

@@ -2,10 +2,12 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 import rnIcon from '../../../assets/RN.png';
+import { NetworkDetector } from '../../services/network-detector';
 
 export const About = () => (
   <View style={styles.screen}>
-    <Image source={rnIcon} style={{ width: 200, height: 200 }} />
+    <NetworkDetector />
+    <Image source={rnIcon} style={{ width: 200, height: 200, paddingTop: 25 }} />
     <View style={styles.textContainer}>
       <Text h4 style={styles.title}>
         Description
@@ -27,7 +29,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: 25,
     height: '100%',
   },
   textContainer: { alignItems: 'center', paddingTop: 10 },
