@@ -4,22 +4,48 @@ import { Button } from 'react-native-elements';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import CheckBox from 'react-native-check-box';
+import { useIsConnected } from 'react-native-offline';
 import { deleteTodo } from '../../api/delete-todo';
 import { updateTodo } from '../../api/update-todo';
+import { setTodosToAsyncStorage } from '../../services/async-storage';
 
 export const TodoItem = ({ todo, setTodos }) => {
   const { id, title, completed } = todo;
+  const isConnected = useIsConnected();
+
+  const updateOnlineTodo = () => {
+    alert('online');
+    updateTodo(id).then((res) => {
+      setTodos(res.data.data.updateTodo);
+      setTodosToAsyncStorage(res.data.data.updateTodo);
+    });
+  };
+
+  const updateOfflineTodo = () => {
+    alert('offline');
+    setTodos((prevState) => {
+      const index = prevState.findIndex((item) => item.id === todo.id);
+      if (index !== -1) {
+        prevState[index].completed = !completed;
+      }
+      setTodosToAsyncStorage([...prevState]);
+      return [...prevState];
+    });
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.checkBoxWrapper}>
         <CheckBox
           checkBoxColor="#2089DC"
           isChecked={completed}
-          onClick={() =>
-            updateTodo(id).then((res) => {
-              setTodos(res.data.data.updateTodo);
-            })
-          }
+          onClick={() => {
+            if (isConnected) {
+              updateOnlineTodo();
+            } else {
+              updateOfflineTodo();
+            }
+          }}
         />
       </View>
 
