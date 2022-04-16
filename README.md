@@ -1,2 +1,2 @@
 # ToDo
-To-do list react native app with offline support
+To-do list react native app
